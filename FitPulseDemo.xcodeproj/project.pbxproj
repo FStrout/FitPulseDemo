@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F39475C32E2FDC2200065ECB /* ProjectOutline.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C22E2FDC2200065ECB /* ProjectOutline.md */; };
+		F39475C52E2FE29400065ECB /* FAQ.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C42E2FE29400065ECB /* FAQ.md */; };
+		F39475C72E2FE32500065ECB /* QuickStart.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C62E2FE32500065ECB /* QuickStart.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F394759A2E2FDA0000065ECB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +33,9 @@
 		F394758C2E2FDA0000065ECB /* FitPulseDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitPulseDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39475992E2FDA0000065ECB /* FitPulseDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitPulseDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F39475A32E2FDA0000065ECB /* FitPulseDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitPulseDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F39475C22E2FDC2200065ECB /* ProjectOutline.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ProjectOutline.md; sourceTree = "<group>"; };
+		F39475C42E2FE29400065ECB /* FAQ.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FAQ.md; sourceTree = "<group>"; };
+		F39475C62E2FE32500065ECB /* QuickStart.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = QuickStart.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +84,9 @@
 		F39475832E2FDA0000065ECB = {
 			isa = PBXGroup;
 			children = (
+				F39475C62E2FE32500065ECB /* QuickStart.md */,
+				F39475C42E2FE29400065ECB /* FAQ.md */,
+				F39475C22E2FDC2200065ECB /* ProjectOutline.md */,
 				F394758E2E2FDA0000065ECB /* FitPulseDemo */,
 				F394759C2E2FDA0000065ECB /* FitPulseDemoTests */,
 				F39475A62E2FDA0000065ECB /* FitPulseDemoUITests */,
@@ -212,6 +224,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F39475C32E2FDC2200065ECB /* ProjectOutline.md in Resources */,
+				F39475C52E2FE29400065ECB /* FAQ.md in Resources */,
+				F39475C72E2FE32500065ECB /* QuickStart.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
