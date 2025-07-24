@@ -10,6 +10,7 @@
 		F39475C32E2FDC2200065ECB /* ProjectOutline.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C22E2FDC2200065ECB /* ProjectOutline.md */; };
 		F39475C52E2FE29400065ECB /* FAQ.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C42E2FE29400065ECB /* FAQ.md */; };
 		F39475C72E2FE32500065ECB /* QuickStart.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C62E2FE32500065ECB /* QuickStart.md */; };
+		F394765A2E326A6100065ECB /* SmartSpectraSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = F39476592E326A6100065ECB /* SmartSpectraSwiftSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F394765A2E326A6100065ECB /* SmartSpectraSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +126,7 @@
 			);
 			name = FitPulseDemo;
 			packageProductDependencies = (
+				F39476592E326A6100065ECB /* SmartSpectraSwiftSDK */,
 			);
 			productName = FitPulseDemo;
 			productReference = F394758C2E2FDA0000065ECB /* FitPulseDemo.app */;
@@ -207,6 +210,9 @@
 			);
 			mainGroup = F39475832E2FDA0000065ECB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F39476582E326A6100065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F394758D2E2FDA0000065ECB /* Products */;
 			projectDirPath = "";
@@ -418,8 +424,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -446,8 +452,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -573,6 +579,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F39476582E326A6100065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Presage-Security/SmartSpectra";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F39476592E326A6100065ECB /* SmartSpectraSwiftSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F39476582E326A6100065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */;
+			productName = SmartSpectraSwiftSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F39475842E2FDA0000065ECB /* Project object */;
 }
