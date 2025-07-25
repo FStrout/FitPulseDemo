@@ -38,7 +38,7 @@ These are the steps I used to install the SmartSpectra SDK to this demo app.
   6. After you login, you will be brought to your dashboard which will contain your APY Key.
   7. Copy your API Key and use it as you need.
 
-_Follow your organizations current policies and best practices for storing the API Key for Presage's Physilogy API._
+_Follow your organizations current policies and best practices for storing the API Key for Presage's Physiology API._
 
 It's never a good idea to store API Keys in GitHub. As such, you will not find my API Key here. What I did for the FitPulseDemo application - I created a LocalKeys object to store my keys locally and I made sure that the file was ignored using gitignore AND NOT tracked.
 

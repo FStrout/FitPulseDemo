@@ -195,6 +195,14 @@ struct MainView: View {
     }
   }
   
+  private func resetState() {
+    duration = 0
+    averagePulseRate = 0
+    maxPulseRate = 0
+    minPulseRate = 0
+    pulseRates.removeAll()
+  }
+  
   private func startVitalsMonitoring() {
     smartSpectraVP.startProcessing()
     smartSpectraVP.startRecording()
@@ -216,8 +224,8 @@ struct MainView: View {
           averagePulseRate: averagePulseRate
         )
       )
+      resetState()
     }
-    print("Pulse Rates: \(pulseRates)")
   }
 }
 
