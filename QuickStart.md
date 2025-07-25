@@ -20,7 +20,7 @@ Download or Clone the FitPulseDemo application from GitHub: https://github.com/F
 These are the steps I used to install the SmartSpectra SDK to this demo app.
   1. Select the top level FitPulseDemo in the Project navigator.
   2. In the Project/Target pane select FitPulseDemo under the Project heading.
-  3. From the tabs that get displayed across the top, select the Project Dependencies tab.
+  3. From the tabs that get displayed across the top, select the **Project Dependencies** tab.
   4. Select the '+' button to add a new package dependency.
   5. Copy this link: https://github.com/Presage-Security/SmartSpectra, and paste it in the Search or enter URL box that is displayed in the upper right corner of the new window that we just opened.
   6. In the Dependency Rule box, make sure 'Branch' is selected and ‘main’ is in the textbox next to it. Select the Add Package button in the lower right.
@@ -48,7 +48,86 @@ struct LocalKeys {
 }
 ```
 
-Then I would set the key by direct reference.
+I set the key by direct reference.
 ```
 sdk.setApiKey(LocalKeys.physiologyApiKey)
 ```
+
+## Ask for Camera Permissions
+
+These are the steps to ask the user for permission to use the camera.
+  1. Select the top level FitPulseDemo in the Project navigator.
+  2. In the Project/Target pane select FitPulseDemo under the Target heading.
+  3. From the tabs that get displayed across the top, select the **Info** tab.
+  4. Drag your cursor over any item in the Key column and select the '+' button that shows up on the right.
+  5. Start typing _**Privacy - Camera Usage Description**_ - select it when able.
+  6. In the Value field, explain to the user why you want permission to use the camera.  
+  Example: _Vitals cannot be measured without the camera._
+  
+  ### Congratulations! You just asked for Camera Permissions when the app is started. _Don't forget to handle scenarios wherebthe user denies permission._
+  
+## Use the SDK
+
+In your view, you will need to import the SmartSpectra SDK and initialize it using your api key.
+```
+import SmartSpectraSwiftSDK
+
+struct MainView: View {
+
+  @ObservedObject var smartSpectraSDK = SmartSpectraSwiftSDK.shared
+  @ObservedObject var smartSpectraVP = SmartSpectraVitalsProcessor.shared
+  
+  init() {
+    let smartSpectraApiKey = LocalKeys.physiologyApiKey
+    
+    smartSpectraSDK.setApiKey(smartSpectraApiKey)
+    smartSpectraSDK.setSmartSpectraMode(.continuous)
+  }
+}
+```
+After that, all you need is a simple UI to start and stop the measurement and display the data.
+
+```
+var body: some View {
+    VStack {
+      GroupBox(label: Text("Vitals")) {
+        ContinuousVitalsPlotView()
+        Grid {
+          GridRow {
+            Text("Status: \(vitalsProcessor.statusHint)")
+          }
+          GridRow {
+            HStack {
+              Text("Vitals Monitoring")
+              Spacer()
+              Button(isVitalMonitoringEnabled ? "Stop": "Start") {
+                isVitalMonitoringEnabled.toggle()
+                if(isVitalMonitoringEnabled) {
+                  startVitalsMonitoring()
+                } else {
+                  stopVitalsMonitoring()
+                }
+              }
+            }
+          }
+        }
+        .padding(.horizontal, 10)
+      }
+    }
+    .onDisappear {
+      stopVitalsMonitoring()
+    }
+  }
+  
+  func startVitalsMonitoring() {
+    vitalsProcessor.startProcessing()
+    vitalsProcessor.startRecording()
+  }
+  
+  func stopVitalsMonitoring() {
+    vitalsProcessor.stopProcessing()
+    vitalsProcessor.stopRecording()
+  }
+```
+
+### Congratulations! You have successfully integrated the SmartSpectra SDK into your iOS application.
