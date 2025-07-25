@@ -35,7 +35,7 @@ struct MainView: View {
   @State var pulseRates: [Int] = []
   
   init() {
-    let smartSpectraApiKey = LocalKeys.SmartSpectraApiKey
+    let smartSpectraApiKey = LocalKeys.physiologyApiKey
     
     smartSpectraSDK.setApiKey(smartSpectraApiKey)
     smartSpectraSDK.setSmartSpectraMode(.continuous)

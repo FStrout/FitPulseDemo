@@ -10,7 +10,7 @@
 		F39475C32E2FDC2200065ECB /* ProjectOutline.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C22E2FDC2200065ECB /* ProjectOutline.md */; };
 		F39475C52E2FE29400065ECB /* FAQ.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C42E2FE29400065ECB /* FAQ.md */; };
 		F39475C72E2FE32500065ECB /* QuickStart.md in Resources */ = {isa = PBXBuildFile; fileRef = F39475C62E2FE32500065ECB /* QuickStart.md */; };
-		F394765A2E326A6100065ECB /* SmartSpectraSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = F39476592E326A6100065ECB /* SmartSpectraSwiftSDK */; };
+		F39478802E3408E200065ECB /* SmartSpectraSwiftSDK in Frameworks */ = {isa = PBXBuildFile; productRef = F394787F2E3408E200065ECB /* SmartSpectraSwiftSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F394765A2E326A6100065ECB /* SmartSpectraSwiftSDK in Frameworks */,
+				F39478802E3408E200065ECB /* SmartSpectraSwiftSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +126,7 @@
 			);
 			name = FitPulseDemo;
 			packageProductDependencies = (
-				F39476592E326A6100065ECB /* SmartSpectraSwiftSDK */,
+				F394787F2E3408E200065ECB /* SmartSpectraSwiftSDK */,
 			);
 			productName = FitPulseDemo;
 			productReference = F394758C2E2FDA0000065ECB /* FitPulseDemo.app */;
@@ -211,7 +211,7 @@
 			mainGroup = F39475832E2FDA0000065ECB;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F39476582E326A6100065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */,
+				F394787E2E3408E200065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F394758D2E2FDA0000065ECB /* Products */;
@@ -585,7 +585,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F39476582E326A6100065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */ = {
+		F394787E2E3408E200065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Presage-Security/SmartSpectra";
 			requirement = {
@@ -596,9 +596,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F39476592E326A6100065ECB /* SmartSpectraSwiftSDK */ = {
+		F394787F2E3408E200065ECB /* SmartSpectraSwiftSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F39476582E326A6100065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */;
+			package = F394787E2E3408E200065ECB /* XCRemoteSwiftPackageReference "SmartSpectra" */;
 			productName = SmartSpectraSwiftSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
