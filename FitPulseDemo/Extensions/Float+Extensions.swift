@@ -8,12 +8,12 @@
 import Foundation
 
 extension Float {
-  func toString(_ numberOfDecimals: Int = 0) -> String {
-    let numberFormatter = NumberFormatter()
-    numberFormatter.numberStyle = .decimal
-    numberFormatter.minimumFractionDigits = numberOfDecimals
-    numberFormatter.maximumFractionDigits = numberOfDecimals
-    
-    return numberFormatter.string(from: NSNumber(value: self)) ?? ""
+  
+  func toDouble() -> Double {
+    return Double(self)
+  }
+  
+  func toInt() -> Int {
+    return Int(self.rounded())
   }
 }

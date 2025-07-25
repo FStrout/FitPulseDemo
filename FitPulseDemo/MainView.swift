@@ -9,28 +9,44 @@ import AVFoundation
 import SwiftUI
 import SmartSpectraSwiftSDK
 
+struct Measurement: Hashable {
+  var time: Date
+  var duration: Int
+  var measurement: Presage_Physiology_MeasurementWithConfidence
+  var minPulseRate: Int
+  var maxPulseRate: Int
+  var averagePulseRate: Int
+}
+
 struct MainView: View {
   @ObservedObject var cameraPermission = CameraPermission.shared
   @ObservedObject var smartSpectraSDK = SmartSpectraSwiftSDK.shared
   @ObservedObject var smartSpectraVP = SmartSpectraVitalsProcessor.shared
   
+  @State private var hasCameraPermission: Bool = false
+  
   @State private var isMonitoringEnabled: Bool = false
-  @State var tods: [Date] = []
-  @State private var durations: [Presage_Physiology_MeasurementWithConfidence] = []
-  @State var hasCameraPermission: Bool = false
+  @State private var measurements: [Measurement] = []
+  
+  @State var duration: Int = 0
+  @State var averagePulseRate: Int = 0
+  @State var maxPulseRate: Int = 0
+  @State var minPulseRate: Int = 0
+  @State var pulseRates: [Int] = []
   
   init() {
     let smartSpectraApiKey = LocalKeys.SmartSpectraApiKey
     
     smartSpectraSDK.setApiKey(smartSpectraApiKey)
     smartSpectraSDK.setSmartSpectraMode(.continuous)
+    
     Task {
       await CameraPermission.shared.checkCameraPermission()
     }
   }
   
   var body: some View {
-    VStack {
+    VStack(spacing: .zero) {
       HStack {
         Text("FitPulseDemo")
           .font(.largeTitle)
@@ -38,7 +54,7 @@ struct MainView: View {
         
         Spacer()
       }
-      .padding()
+      .padding(.horizontal)
       
       if hasCameraPermission {
         loadedView
@@ -85,17 +101,39 @@ struct MainView: View {
     .padding()
   }
   
-  var loadedView: some View {
+  func testDetails(description: String, value: Int) -> some View {
     VStack {
+      Text(description)
+        .font(.footnote)
+      Text("\(value)")
+        .font(.footnote)
+        .bold()
+    }
+  }
+  
+  var loadedView: some View {
+    VStack(spacing: 8) {
       ContinuousVitalsPlotView()
       
       HStack {
-        Text("Test Duration:")
-        
+        Text("Test Duration")
         Spacer()
-        
-        Text("\(smartSpectraSDK.metricsBuffer?.pulse.rate.last?.time.toString() ?? "0")")
+        Text("\(duration) sec")
       }
+      .padding(.vertical)
+      
+      HStack {
+        Text("Pulse Rate (BPM)")
+        Spacer()
+      }
+      HStack(spacing: 4) {
+        testDetails(description: "Min", value: minPulseRate)
+        Spacer()
+        testDetails(description: "Max", value: maxPulseRate)
+        Spacer()
+        testDetails(description: "Avg", value: averagePulseRate)
+      }
+      .padding([.horizontal, .bottom])
       
       Button {
         isMonitoringEnabled ? stopVitalsMonitoring() : startVitalsMonitoring()
@@ -107,50 +145,87 @@ struct MainView: View {
       .foregroundColor(.white)
       .background(Color.blue)
       .cornerRadius(8)
-      .padding()
+      .padding(.horizontal)
       
       List {
-        ForEach(0..<durations.count, id: \.self) { idx in
-          listView(idx)
+        ForEach(measurements, id: \.self) { measurement in
+          listView(measurement)
         }
       }
+      .padding(.horizontal, -16)
       
       Spacer()
     }
     .padding(.horizontal)
-  }
-  
-  func listView(_ idx: Int) -> some View {
-    VStack(alignment: .leading) {
-      Text("\(tods[idx].usDateTime)")
-        .bold()
-      HStack(alignment: .center) {
-        Text("Duration: \(durations[idx].time.toString()) seconds")
-        
-        Spacer()
-        
-        Text("\(durations[idx].value.toString()) BPM")
-          .bold()
+    .onReceive(smartSpectraSDK.$metricsBuffer) { metricsBuffer in
+      guard isMonitoringEnabled, let metrics = metricsBuffer, metrics.isInitialized else { return }
+      
+      let rates = metrics.pulse.rate.map { $0.value.toInt() }
+      
+      rates.forEach { pulseRates.append($0) }
+      
+      if !rates.isEmpty, let last = metrics.pulse.rate.last {
+        minPulseRate = pulseRates.min() ?? 0
+        maxPulseRate = pulseRates.max() ?? 0
+        averagePulseRate = pulseRates.reduce(0, +) / pulseRates.count
+        duration = last.time.toInt()
       }
     }
   }
   
-  func startVitalsMonitoring() {
+  func listView(_ measurement: Measurement) -> some View {
+    VStack(alignment: .leading) {
+      HStack {
+        Text("\(measurement.time.usDateTime)")
+          .bold()
+        Spacer()
+        Text("\(measurement.duration) sec")
+      }
+      HStack(alignment: .center) {
+        Spacer()
+          .frame(width: 16)
+        testDetails(description: "Min", value: measurement.minPulseRate)
+        Spacer()
+        testDetails(description: "Max", value: measurement.maxPulseRate)
+        Spacer()
+        testDetails(description: "Avg", value: measurement.averagePulseRate)
+        Spacer()
+          .frame(width: 16)
+      }
+    }
+  }
+  
+  private func startVitalsMonitoring() {
     smartSpectraVP.startProcessing()
     smartSpectraVP.startRecording()
   }
   
-  func stopVitalsMonitoring() {
+  private func stopVitalsMonitoring() {
     smartSpectraVP.stopProcessing()
     smartSpectraVP.stopRecording()
-    if let metricsBuffer = smartSpectraSDK.metricsBuffer, let lastRate = metricsBuffer.pulse.rate.last {
-      durations.append(lastRate)
-      tods.append(.now)
+    if let metricsBuffer = smartSpectraSDK.metricsBuffer,
+       let lastRate = metricsBuffer.pulse.rate.last
+    {
+      measurements.append(
+        Measurement(
+          time: .now,
+          duration: duration,
+          measurement: lastRate,
+          minPulseRate: minPulseRate,
+          maxPulseRate: maxPulseRate,
+          averagePulseRate: averagePulseRate
+        )
+      )
     }
-    smartSpectraSDK.metricsBuffer = nil
+    print("Pulse Rates: \(pulseRates)")
   }
 }
 
 #Preview {
   MainView()
+}
+
+#Preview {
+  MainView()
+    .preferredColorScheme(.dark)
 }
